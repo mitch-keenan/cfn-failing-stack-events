@@ -1,0 +1,16 @@
+{
+  "name": "cfn-failing-stacks",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^9.2.0"
+  },
+  "bin": {
+    "cfn-failing-stacks": "./index.js"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "author": "Mitchell Keenan",
+  "description": ""
+}
