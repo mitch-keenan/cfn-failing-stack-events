@@ -4,7 +4,7 @@ const { program } = require("commander");
 const { exec } = require("child_process");
 
 const DESCRIPTION =
-	"finds the AWS Cloudformation stack events within a given stack and time period which have 'UPDATE_FAILED' or 'CREATE_FAILED' resource statuses. This includes nested stacks; allowing you to quickly find the cause of failed stack deployments.";
+	"Finds the AWS Cloudformation stack events within a given stack and time period which have 'UPDATE_FAILED' or 'CREATE_FAILED' resource statuses. This includes nested stacks; allowing you to quickly find the cause of failed stack deployments.";
 const DEFAULT_LABEL_START = "Now";
 const DEFAULT_LABEL_END = "One hour ago";
 
