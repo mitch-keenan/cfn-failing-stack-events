@@ -59,10 +59,16 @@ async function getStackEvents(name, start, end) {
 		.filter((e) => FAILURE_STATES[e.ResourceStatus])
 		.map((e) => ({
 			...e,
-			Time: new Date(e.Timestamp),
 			Timestamp: new Date(e.Timestamp).getTime(),
 		}))
-		.filter((e) => e.Timestamp > start && e.Timestamp < end);
+		.filter((e) => e.Timestamp > start && e.Timestamp < end)
+		.map((e) => ({
+			...e,
+			Time: new Date(e.Timestamp),
+			ResourceProperties: e.ResourceProperties
+				? JSON.parse(e.ResourceProperties)
+				: null,
+		}));
 
 	if (!filtered.length) return [];
 	const promises = filtered.map((f) => {
@@ -87,7 +93,7 @@ async function getStackEvents(name, start, end) {
 async function findAndLogFailingEvents(stackName, start, end) {
 	try {
 		const events = await getStackEvents(stackName, start, end);
-		console.log(events);
+		console.log(JSON.stringify(events, null, "\t"));
 	} catch (e) {
 		console.error(e);
 		process.abort(1);
@@ -98,7 +104,7 @@ function main(stackName, options) {
 	const startDate =
 		options.startTime === DEFAULT_LABEL_START
 			? getDefaultStartDate()
-			: new Date(options.start);
+			: new Date(options.startTime);
 	const startTimestamp = startDate.getTime();
 
 	const endDate =
